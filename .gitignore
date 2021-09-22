@@ -1,3 +1,7 @@
 \venv 
 *.pyc
 *.xlsx
+__pycache__/
+venv/
+
+
