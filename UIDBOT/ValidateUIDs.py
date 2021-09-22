@@ -7,9 +7,10 @@ class ValidateUIDsFromExcel:
 
     def __init__(self):
         self.validation = Validation()
-        # time.sleep(3)
+        time.sleep(2)
         self.validation.acceptCookies()
-        self.input = r"C:\Users\Wieser\Documents\Projekte\TAG\2021\RPA\UID Use Case\UID-Liste per 02.06.2021.xlsx"
+        self.validation.close_windows()
+        self.input = r"C:\Users\Wieser\Desktop\202106_Python\202106_Python\UIDBOT\ValidatedUIDsBU.xlsx"
         self.workbook = openpyxl.load_workbook(self.input)
         self.inputSheet = self.workbook['Table 1']
         self.inputSheet.insert_cols(6)
@@ -29,11 +30,11 @@ class ValidateUIDsFromExcel:
 
     def saveExcel(self):
         """save update of Excel file"""
-        self.workbook.save(filename=r"C:\Users\Wieser\Documents\Projekte\TAG\2021\RPA\UID Use Case\ValidatedUIDs.xlsx")
+        self.workbook.save(filename="ValidatedUIDs.xlsx")
 
 
 if __name__ == "__main__":
     UIDsWorkbook = ValidateUIDsFromExcel()
-    UIDsWorkbook.validateUIDsInExcel(40)
+    UIDsWorkbook.validateUIDsInExcel(10)
     UIDsWorkbook.saveExcel()
     UIDsWorkbook.validation.Scraper.driver.close()
