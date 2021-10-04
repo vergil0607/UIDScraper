@@ -1,6 +1,8 @@
 \venv 
 *.pyc
+*.xlsx
 __pycache__/
+*__pycache__/
 UIDBOT/__pycache__/
 venv/
 
