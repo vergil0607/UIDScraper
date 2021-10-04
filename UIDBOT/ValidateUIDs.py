@@ -27,6 +27,7 @@ class ValidateUIDsFromExcel:
 
     def tryScarping(self, row, max_tries=3):
         for i in range(max_tries):
+            time.sleep(4)
             try:
                 print(row[0].value)
                 if row[0].value is None:
