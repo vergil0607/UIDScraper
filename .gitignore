@@ -1,4 +1,7 @@
-\venv 
+\venv
+\00_Archive
+\logs
+*.txt
 *.pyc
 *.xlsx
 __pycache__/

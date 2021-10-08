@@ -6,10 +6,11 @@ from selenium.common.exceptions import NoSuchElementException
 
 class Validation:
 
-    def __init__(self):
-        self.Scraper = Scraper()
+    def __init__(self, headless=True):
+        self.Scraper = Scraper(headless)
         self.URL = "https://www.finanz.at/steuern/umsatzsteuer/uid-nummer/"
         self.Scraper.openURL(self.URL)
+        time.sleep(2)
 
     def acceptCookies(self):
         time.sleep(2)
@@ -43,7 +44,9 @@ class Validation:
     def validateUID(self, UID):
         UIDValid = False
         self.enterUID(UID)
-        if len(self.Scraper.driver.find_elements_by_class_name('bg-success')) > 1:
+        check1 = len(self.Scraper.driver.find_elements_by_class_name('bg-success')) > 1
+        check2 = len(self.Scraper.driver.find_elements_by_class_name('fa-check-circle')) == 2
+        if check1 & check2:
             UIDValid = True
 
         return UIDValid
