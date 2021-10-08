@@ -3,11 +3,10 @@
 \logs
 *.txt
 *.pyc
-*.xlsx
+**.xlsx
 __pycache__/
-*__pycache__/
 UIDBOT/__pycache__/
 venv/
 ValidatedUIDs.xlsx
-
+\.idea
 
