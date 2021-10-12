@@ -11,6 +11,6 @@
 
 ## Download and install
 
-`git clone ...` <br>
+`git clone https://github.com/vergil0607/UIDScraper.git` <br>
 `pip install -r requirements.txt` <br>
 `python UIDBOT\ValidateUIDs.py`
