@@ -13,6 +13,6 @@
 
 `git clone https://github.com/vergil0607/UIDScraper.git` <br>
 `python -m venv venv` <br>
-`venv\Script\activate` <br>
+`venv\Scripts\activate` <br>
 `pip install -r requirements.txt` <br>
 `python UIDBOT\ValidateUIDs.py`
