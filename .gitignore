@@ -1,12 +1,10 @@
-\venv
-\00_Archive
-\logs
+venv/
+00_Archive/
+.idea/
+__pycache__/
+UIDBOT/__pycache__/
+ValidatedUIDs.xlsx
 *.txt
 *.pyc
 **.xlsx
-__pycache__/
-UIDBOT/__pycache__/
-venv/
-ValidatedUIDs.xlsx
-\.idea
 

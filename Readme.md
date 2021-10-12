@@ -7,3 +7,10 @@
     - cd "Pfad zum Ordner"
 4) Aktivieren Sie das virtuelle Environment mit "venv\Script\activate"
 5) Starten Sie das Script mit python UIDBOT\ValidateUIDs.py
+
+
+## Download and install
+
+`git clone ...` <br>
+`pip install -r requirements.txt` <br>
+`python UIDBOT\ValidateUIDs.py`

@@ -1,17 +1,20 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from parameters import Parameters
 
 
 class Scraper:
 
-    def __init__(self, headless=True):
-        if headless:
+    def __init__(self):
+        if Parameters.usebrowser:
+            self.driver = webdriver.Chrome(executable_path=Parameters.chromepath)
+        else:
             self.chrome_options = Options()
             self.chrome_options.add_argument("--headless")
-            self.driver = webdriver.Chrome(executable_path=r'C:\Users\Wieser\Documents\Configs\chromedriver.exe',
+            self.driver = webdriver.Chrome(executable_path=Parameters.chromepath,
                                            options=self.chrome_options)
-        else:
-            self.driver = webdriver.Chrome(executable_path=r'C:\Users\Wieser\Documents\Configs\chromedriver.exe')
 
     def openURL(self, url):
         self.driver.get(url)
+
+

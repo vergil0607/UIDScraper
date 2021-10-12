@@ -6,8 +6,8 @@ from selenium.common.exceptions import NoSuchElementException
 
 class Validation:
 
-    def __init__(self, headless=True):
-        self.Scraper = Scraper(headless)
+    def __init__(self):
+        self.Scraper = Scraper()
         self.URL = "https://www.finanz.at/steuern/umsatzsteuer/uid-nummer/"
         self.Scraper.openURL(self.URL)
         time.sleep(2)

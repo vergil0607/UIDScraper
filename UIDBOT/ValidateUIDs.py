@@ -3,18 +3,17 @@ from Validation import Validation
 import time
 from datetime import datetime
 import os
-
-PATH = r"C:\Users\Wieser\Documents\Projekte\TAG\2021\RPA\UID Use Case\202106_Python\UIDBOT"
+from parameters import Parameters
 
 
 class ValidateUIDsFromExcel:
 
-    def __init__(self, headless):
+    def __init__(self):
         self.timestamp = datetime.now().strftime('%Y%m%d')
-        self.validation = Validation(headless)
+        self.validation = Validation()
         self.validation.acceptCookies()
         self.validation.close_windows()
-        self.input = os.path.join(PATH, "ValidatedUIDs.xlsx")
+        self.input = os.path.join(Parameters.PATH, Parameters.filein)
         self.workbook = openpyxl.load_workbook(self.input)
         self.inputSheet = self.workbook['Table 1']
         self.numberofrows = len(self.inputSheet['A'])
@@ -47,7 +46,7 @@ class ValidateUIDsFromExcel:
 
     def saveExcel(self):
         """save update of Excel file"""
-        self.workbook.save(filename=os.path.join(PATH, "ValidatedUIDs_Output.xlsx"))
+        self.workbook.save(filename=os.path.join(Parameters.PATH, Parameters.fileout))
 
     def log(self, msg):
         with open('../logs/' + self.timestamp + '_log.txt', 'a') as f:
@@ -56,7 +55,10 @@ class ValidateUIDsFromExcel:
 
 
 if __name__ == "__main__":
-    UIDsWorkbook = ValidateUIDsFromExcel(headless=False)
-    UIDsWorkbook.validateUIDsInExcel(100)  # UIDsWorkbook.numberofrows)
+    UIDsWorkbook = ValidateUIDsFromExcel()
+    if Parameters.check_all:
+        UIDsWorkbook.validateUIDsInExcel(UIDsWorkbook.numberofrows)
+    else:
+        UIDsWorkbook.validateUIDsInExcel(100)
     UIDsWorkbook.saveExcel()
     UIDsWorkbook.validation.Scraper.driver.close()
