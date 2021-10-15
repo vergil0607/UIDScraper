@@ -2,51 +2,55 @@ from Scraper import Scraper
 from selenium.webdriver.common.keys import Keys
 import time
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.support.ui import Select
+from selenium.webdriver.common.keys import Keys
 
 
 class Validation:
 
     def __init__(self):
         self.Scraper = Scraper()
-        self.URL = "https://www.finanz.at/steuern/umsatzsteuer/uid-nummer/"
+        self.URL = "https://ec.europa.eu/taxation_customs/vies/vatResponse.html"
         self.Scraper.openURL(self.URL)
         time.sleep(2)
 
-    def acceptCookies(self):
+    def selectCountry(self, countrycode):
+        select = Select(self.Scraper.driver.find_element_by_id('countryCombobox'))
+        select.select_by_value(countrycode)
+
+    def enterNumber(self, number):
+        inputfield = self.Scraper.driver.find_element_by_id('number')
+        inputfield.clear()
+        inputfield.send_keys(number)
+
+    def pruefen(self):
+        self.Scraper.driver.find_element_by_id('submit').click()
+
+    def checkValidity(self):
+        valid_class_elements = self.Scraper.driver.find_elements_by_class_name('validStyle')
+        if valid_class_elements:
+            return True
+        else:
+            return False
+
+    def returnPage(self):
+        self.Scraper.driver.back()
+
+    def makeRequest(self, UID):
+        """
+        make a full request for validity of UID
+        :param UID:
+        :return: validity (True if the UID was found)
+        """
+        countrycode = UID[:2]
+        number = UID[2:]
+        self.selectCountry(countrycode)
+        self.enterNumber(number)
+        self.pruefen()
         time.sleep(2)
-        frame = self.Scraper.driver.find_element_by_id('sp_message_iframe_545210')
-        self.Scraper.driver.switch_to_frame(frame)
-        self.Scraper.driver.find_elements_by_tag_name('button')[0].click()
-        self.Scraper.driver.switch_to.default_content()
-
-    def close_windows(self):
+        validity = self.checkValidity()
+        self.returnPage()
         time.sleep(2)
-        try:
-            self.Scraper.driver.find_element_by_id('pa-deny-btn').click()
-        except NoSuchElementException:
-            pass
-        time.sleep(1)
-        try:
-            self.Scraper.driver.find_element_by_id('mitAds').click()
-        except NoSuchElementException:
-            pass
+        return validity
 
-    def enterUID(self, UID):
-        self.Scraper.driver.find_element_by_id('UID').clear()
-        time.sleep(1)
-        inputField = self.Scraper.driver.find_element_by_id('UID')
-        inputField.send_keys(UID)
-        time.sleep(1)
-        self.Scraper.driver.find_element_by_id('checkUID').click()
-        time.sleep(4)
-        self.Scraper.driver.delete_all_cookies()
 
-    def validateUID(self, UID):
-        UIDValid = False
-        self.enterUID(UID)
-        check1 = len(self.Scraper.driver.find_elements_by_class_name('bg-success')) > 1
-        check2 = len(self.Scraper.driver.find_elements_by_class_name('fa-check-circle')) == 2
-        if check1 & check2:
-            UIDValid = True
-
-        return UIDValid

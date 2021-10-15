@@ -11,8 +11,6 @@ class ValidateUIDsFromExcel:
     def __init__(self):
         self.timestamp = datetime.now().strftime('%Y%m%d')
         self.validation = Validation()
-        self.validation.acceptCookies()
-        self.validation.close_windows()
         self.input = os.path.join(Parameters.PATH, Parameters.filein)
         self.workbook = openpyxl.load_workbook(self.input)
         self.inputSheet = self.workbook['Table 1']
@@ -28,21 +26,24 @@ class ValidateUIDsFromExcel:
             self.tryScarping(row)
 
     def tryScarping(self, row, max_tries=3):
-        for i in range(max_tries):
-            time.sleep(4)
-            try:
-                self.log(row[0].value)
-                if row[0].value is None:
-                    row[5].value = 'blank'
-                elif self.validation.validateUID(row[0].value):
-                    row[5].value = 'valid'
-                else:
-                    row[5].value = 'not valid'
-                self.log(row[5].value)
-                break
-            except:
-                row[5].value = 'please check manually'
-                continue
+        if row[0].value is None:
+            row[5].value = 'blank'
+        else:
+            for i in range(max_tries):
+                try:
+                    self.log(row[0].value)
+                    if self.validation.makeRequest(row[0].value):
+                        row[5].value = 'valid'
+                    else:
+                        row[5].value = 'not valid'
+                    self.log(row[5].value)
+                    break
+                except Exception as e:
+                    print(e)
+                    self.saveExcel()
+                    time.sleep(3)
+                    row[5].value = 'please check manually'
+                    continue
 
     def saveExcel(self):
         """save update of Excel file"""
@@ -59,6 +60,6 @@ if __name__ == "__main__":
     if Parameters.check_all:
         UIDsWorkbook.validateUIDsInExcel(UIDsWorkbook.numberofrows)
     else:
-        UIDsWorkbook.validateUIDsInExcel(100)
+        UIDsWorkbook.validateUIDsInExcel(Parameters.Limit)
     UIDsWorkbook.saveExcel()
     UIDsWorkbook.validation.Scraper.driver.close()

@@ -1,6 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from parameters import Parameters
+from UIDBOT.parameters import Parameters
 
 
 class Scraper:
