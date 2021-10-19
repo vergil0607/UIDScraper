@@ -1,12 +1,20 @@
-## Erklärung zum automatischen UID - Abgleich:
+# VAT Number verification:
 
-1) Windows-Taste
-2) Anaconda-Prompt suchen und öffnen
-3) Um in den richtigen Ordner zu navigieren, geben Sie folgende Befehle ein:
-    - R:
-    - cd "Pfad zum Ordner"
-4) Aktivieren Sie das virtuelle Environment mit "venv\Script\activate"
-5) Starten Sie das Script mit python UIDBOT\ValidateUIDs.py
+## What is required
+
+*  An Excel-file or .csv file containing the VAT-numbers to be validated
+
+## What is the source of validation
+
+* To validate the VAT-numbers, the website https://ec.europa.eu/taxation_customs/vies/ is used
+* The website allows the validation of VAT-numbers within the European Union, including Northern Ireland
+
+## Possible settings
+
+* The name of the input file
+* The name of the output file
+* The limit of numbers to be checked
+* Whether a browser is used, or the task is performed headlessly
 
 
 ## Download and install
