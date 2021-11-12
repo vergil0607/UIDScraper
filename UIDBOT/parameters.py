@@ -9,9 +9,9 @@ class Parameters:
     chromepath = r'C:\Users\Wieser\Documents\Configs\chromedriver.exe'
     filein = "ATU Prüfung 2021.xlsx"
     fileout = "ValidatedUIDs_Output.xlsx"
-    check_all = True
+    check_all = False
     Limit = 200
-    usebrowser = False
+    usebrowser = True
 
     def __init__(self):
         pass

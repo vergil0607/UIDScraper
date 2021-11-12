@@ -3,8 +3,11 @@ venv/
 .idea/
 __pycache__/
 UIDBOT/__pycache__/
+PDF/
+
 ValidatedUIDs.xlsx
 **.txt
 **.pyc
 **.xlsx
+**.csv
 
