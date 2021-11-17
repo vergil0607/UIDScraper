@@ -20,17 +20,20 @@ class TagUIDPdfConverter:
                 df = pd.DataFrame(rawdata)
                 df.columns = df.iloc[0]
                 df.drop(df.index[0], inplace=True)
-                data = df[[*df.columns.drop([None, 'Steuernummer'])]]
+                if None in [*df.columns]:
+                    df = df[[*df.columns.drop([None])]]
+                if 'Steuernummer' in [*df.columns]:
+                    data = df[[*df.columns.drop(['Steuernummer'])]]
                 self.table = self.table.append(data)
             self.table.reset_index(drop=True, inplace=True)
 
         return self.table
 
-    def writeTable2csv(self, outfilename: str = 'output.csv'):
-        self.table.to_csv(outfilename, sep=";", encoding='utf-8')
+    def writeTable2csv(self, outfilename: str = 'output2.csv'):
+        self.table.to_csv(outfilename, sep=";", encoding='windows-1252')
 
 
 if __name__ == "__main__":
-    converter = TagUIDPdfConverter(file='../PDF/UID-Liste per 09.06.2021.pdf')
+    converter = TagUIDPdfConverter(file='../PDF/pdf Auszug UID-Nummer SAP v 12.11.2021.pdf')
     converter.convertTable()
     converter.writeTable2csv()
