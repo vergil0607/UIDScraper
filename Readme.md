@@ -19,9 +19,12 @@
 
 ## Download and install
 
+open anaconda prompt (ggf. `conda install -c anaconda git`)
+
 `git clone https://github.com/vergil0607/UIDScraper.git` <br>
 `cd UIDScraper` <br>
 `python -m venv venv` <br>
 `venv\Scripts\activate` <br>
-`pip install -r requirements.txt` <br>
+`pip install -r requirements.txt` <br><br>
+Anpassen von `parameter.py` <br><br>
 `python UIDBOT\ValidateUIDs.py`

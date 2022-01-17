@@ -11,7 +11,7 @@ class ValidateUIDsFromExcel:
     def __init__(self):
         self.timestamp = datetime.now().strftime('%Y%m%d')
         self.validation = Validation()
-        self.input = os.path.join(Parameters.PATH, Parameters.filein)
+        self.input = Parameters.filein
         self.workbook = openpyxl.load_workbook(self.input)
         self.inputSheet = self.workbook[Parameters.tabname]
         self.numberofrows = len(self.inputSheet['A'])
