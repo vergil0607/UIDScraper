@@ -12,6 +12,8 @@ class Validation:
         self.Scraper = Scraper()
         self.URL = "https://ec.europa.eu/taxation_customs/vies/vatResponse.html"
         self.Scraper.openURL(self.URL)
+        time.sleep(3)
+        self.Scraper.driver.refresh()
         time.sleep(2)
 
     def selectCountry(self, countrycode):

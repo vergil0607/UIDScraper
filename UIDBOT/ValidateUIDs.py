@@ -13,10 +13,10 @@ class ValidateUIDsFromExcel:
         self.validation = Validation()
         self.input = os.path.join(Parameters.PATH, Parameters.filein)
         self.workbook = openpyxl.load_workbook(self.input)
-        self.inputSheet = self.workbook['Table 1']
+        self.inputSheet = self.workbook[Parameters.tabname]
         self.numberofrows = len(self.inputSheet['A'])
-        self.inputSheet.insert_cols(6)
-        self.inputSheet["F1"] = "Validation"
+        self.inputSheet.insert_cols(Parameters.newcolix)
+        self.inputSheet[Parameters.newcolumn] = "Validation"
 
     def validateUIDsInExcel(self, maxUID=100):
         """loop through the rows of the Excel file"""
@@ -27,22 +27,23 @@ class ValidateUIDsFromExcel:
 
     def tryScarping(self, row, max_tries=3):
         if row[0].value is None:
-            row[5].value = 'blank'
+            row[Parameters.newcolix-1].value = 'blank'
         else:
+            uid = row[0].value.strip()
             for i in range(max_tries):
                 try:
-                    self.log(row[0].value)
-                    if self.validation.makeRequest(row[0].value):
-                        row[5].value = 'valid'
+                    self.log(uid)
+                    if self.validation.makeRequest(uid):
+                        row[Parameters.newcolix-1].value = 'valid'
                     else:
-                        row[5].value = 'not valid'
-                    self.log(row[5].value)
+                        row[Parameters.newcolix-1].value = 'not valid'
+                    self.log(row[Parameters.newcolix-1].value)
                     break
                 except Exception as e:
                     print(e)
                     self.saveExcel()
                     time.sleep(3)
-                    row[5].value = 'please check manually'
+                    row[Parameters.newcolix-1].value = 'please check manually'
                     continue
 
     def saveExcel(self):

@@ -27,7 +27,7 @@ class TagUIDPdfConverter:
                 self.table = self.table.append(data)
             self.table.reset_index(drop=True, inplace=True)
 
-        return self.table
+            return self.table
 
     def writeTable2csv(self, outfilename: str = 'output2.csv'):
         self.table.to_csv(outfilename, sep=";", encoding='windows-1252')
