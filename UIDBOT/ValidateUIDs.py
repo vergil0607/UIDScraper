@@ -22,7 +22,7 @@ class ValidateUIDsFromExcel:
         """loop through the rows of the Excel file"""
         for j, row in enumerate(self.inputSheet.iter_rows(min_row=2, max_row=maxUID)):
             if j % 10 == 0:
-                self.log("{}/{} checked".format(j, self.numberofrows))
+                print(j)
             self.tryScarping(row)
 
     def tryScarping(self, row, max_tries=3):
@@ -48,10 +48,10 @@ class ValidateUIDsFromExcel:
 
     def saveExcel(self):
         """save update of Excel file"""
-        self.workbook.save(filename=os.path.join(Parameters.PATH, Parameters.fileout))
+        self.workbook.save(filename=Parameters.fileout)
 
     def log(self, msg):
-        with open('../logs/' + self.timestamp + '_log.txt', 'a') as f:
+        with open(self.timestamp + '_log.txt', 'a') as f:
             print(msg)
             print(msg, file=f)
 
